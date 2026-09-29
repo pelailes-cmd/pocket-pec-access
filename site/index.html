@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Pocket PEC · Access codes</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><span class="bolt">⚡</span> Pocket PEC <span class="muted">Access codes</span></div>
+    <button id="signOut" class="ghost" hidden>Sign out</button>
+  </header>
+
+  <main>
+    <section id="loginView" class="card narrow" hidden>
+      <h1>Seller sign in</h1>
+      <form id="loginForm">
+        <label>Email <input id="email" type="email" autocomplete="username" required></label>
+        <label>Password <input id="password" type="password" autocomplete="current-password" required></label>
+        <button type="submit">Sign in</button>
+        <p id="loginError" class="error" role="alert"></p>
+      </form>
+    </section>
+
+    <section id="notAdmin" class="card narrow" hidden>
+      <h1>Not an admin account</h1>
+      <p>You are signed in, but this account is not allowed to manage codes. In Supabase → SQL Editor run:</p>
+      <pre id="adminSql"></pre>
+      <p>then reload this page.</p>
+    </section>
+
+    <div id="adminView" hidden>
+      <section class="card">
+        <h2>New access code</h2>
+        <form id="genForm" class="row">
+          <label>Buyer <input id="buyer" placeholder="Name, email or phone" maxlength="120"></label>
+          <label>Note <input id="note" placeholder="e.g. GCash ref 1234" maxlength="200"></label>
+          <label class="small">How many <input id="count" type="number" min="1" max="50" value="1"></label>
+          <button type="submit">Generate</button>
+        </form>
+        <div id="newCodes"></div>
+      </section>
+
+      <section class="card">
+        <div class="row between">
+          <h2>All codes</h2>
+          <div class="stats" id="stats"></div>
+        </div>
+        <div class="row">
+          <input id="search" placeholder="Search code, buyer or note" type="search">
+          <select id="statusFilter">
+            <option value="">All statuses</option>
+            <option value="unused">Unused</option>
+            <option value="active">Activated</option>
+            <option value="revoked">Revoked</option>
+          </select>
+          <button id="refresh" class="ghost">Refresh</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Code</th><th>Buyer / note</th><th>Created</th><th>Status</th><th></th></tr></thead>
+            <tbody id="codes"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script src="config.js"></script>
+  <script type="module" src="app.js"></script>
+</body>
+</html>

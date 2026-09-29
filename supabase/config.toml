@@ -1,0 +1,8 @@
+# Minimal Supabase CLI config for this repo (`npx supabase link` fills in the rest).
+project_id = "pocket-pec-access"
+
+# The app calls this function before the user has any account, so it is
+# public; it only accepts well-formed requests and returns signed licenses
+# for valid, unused (or same-device) codes.
+[functions.redeem]
+verify_jwt = false
